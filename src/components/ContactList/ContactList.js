@@ -1,28 +1,40 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { List, Li, ContactWrap, DeleteBtn } from './ContactList.styled';
-export const ContactList = ({ contactsArr, onDelete }) => {
-  if (contactsArr.length > 0) {
-    return (
-      <ContactWrap>
-        <List>
-          {contactsArr.map(({ id, name, number }) => (
-            <Li key={id}>
-              {name}
-              <span>:</span>
-              {number}{' '}
-              <DeleteBtn type="button" id={id} onClick={() => onDelete(id)}>
-                Delete
-              </DeleteBtn>
-            </Li>
-          ))}
-        </List>
-      </ContactWrap>
-    );
-  }
+import { getContacts, getFilter } from 'redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'redux/contactsSlice';
+
+export const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  const filteredContacts = contacts.filter(item =>
+    item.name.toLowerCase().includes(filter)
+  );
+  const dispatch = useDispatch();
+  return (
+    <ContactWrap>
+      <List>
+        {filteredContacts.map(({ id, name, number }) => (
+          <Li key={id}>
+            {name}
+            <span>:</span>
+            {number}{' '}
+            <DeleteBtn
+              type="button"
+              id={id}
+              onClick={() => dispatch(deleteContact(id))}
+            >
+              Delete
+            </DeleteBtn>
+          </Li>
+        ))}
+      </List>
+    </ContactWrap>
+  );
 };
 
-ContactList.propTypes = {
-  contactsArr: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
+// ContactList.propTypes = {
+//   contactsArr: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   onDelete: PropTypes.func.isRequired,
+// };

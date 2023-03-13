@@ -1,61 +1,51 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+// import PropTypes from 'prop-types';
 import { Form, InputWrap, AddBtn, Label, Input } from './ContactForm.styled';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
-export const ContactFormHooks=(data)=>{
-  const [name,setName]=useState('');
-  const [number,setNumber]=useState('');
-
-  function changeHandler (e) {
-    const { name, value } = e.currentTarget;
-switch (name) {
-  case 'name':
-    setName(value);
-    break;
-    case 'number':
-    setNumber(value);
-    break;
-  default:
-    break;
-}}
-function submitHandler (e) {
-  e.preventDefault();
-  data.onSubmit({name,number});
-setName('');
-setNumber('');
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  function submitHandler(e) {
+    e.preventDefault();
+    const form = e.target;
+    const userInput = {
+      name: form.elements.name.value,
+      number: form.elements.number.value,
+    };
+    dispatch(addContact(userInput));
+    form.reset();
+  }
+  return (
+    <InputWrap>
+      <Form onSubmit={submitHandler}>
+        <Label htmlFor="name">
+          Name
+          <Input
+            type="text"
+            name="name"
+            id="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+        </Label>
+        <Label htmlFor="number">
+          Number
+          <Input
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+        </Label>
+        <AddBtn type="submit">Add Contacts</AddBtn>
+      </Form>
+    </InputWrap>
+  );
 };
-return (<InputWrap>
-  <Form onSubmit={submitHandler}>
-    <Label htmlFor="name">
-      Name
-      <Input
-        type="text"
-        name="name"
-        id="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
-        value={name}
-        onChange={changeHandler}
-      />
-    </Label>
-    <Label htmlFor="number">
-      Number
-      <Input
-        type="tel"
-        name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required
-        value={number}
-        onChange={changeHandler}
-      />
-    </Label>
-    <AddBtn type="submit">Add Contacts</AddBtn>
-  </Form>
-</InputWrap>)
-}
 
-ContactFormHooks.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };

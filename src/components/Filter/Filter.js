@@ -1,8 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { setFilter } from 'redux/contactsSlice';
 import { InputWrap, Form, Label, Input } from './Filter.styled';
 
-export const Filter = ({ value, onChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const handleFilterChange = e => {
+    dispatch(setFilter(e.target.value.toLowerCase().trim()));
+  };
   return (
     <InputWrap>
       <Form>
@@ -11,8 +16,7 @@ export const Filter = ({ value, onChange }) => {
             type="text"
             name="filter"
             id="filter"
-            value={value}
-            onChange={onChange}
+            onChange={e => handleFilterChange(e)}
           />
         </Label>
       </Form>
@@ -20,8 +24,3 @@ export const Filter = ({ value, onChange }) => {
   );
 };
 export default Filter;
-
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
