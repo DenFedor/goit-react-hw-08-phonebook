@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { List, Li, ContactWrap, DeleteBtn } from './ContactList.styled';
 import { getContacts, getFilter } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,8 +32,3 @@ export const ContactList = () => {
     </ContactWrap>
   );
 };
-
-// ContactList.propTypes = {
-//   contactsArr: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   onDelete: PropTypes.func.isRequired,
-// };
