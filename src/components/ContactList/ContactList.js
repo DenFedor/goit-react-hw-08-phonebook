@@ -2,7 +2,7 @@ import React from 'react';
 import { List, Li, ContactWrap, DeleteBtn } from './ContactList.styled';
 import { getContacts, getFilter } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/operations';
 
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
@@ -14,11 +14,11 @@ export const ContactList = () => {
   return (
     <ContactWrap>
       <List>
-        {filteredContacts.map(({ id, name, number }) => (
+        {filteredContacts.map(({ id, name, phone }) => (
           <Li key={id}>
             {name}
             <span>:</span>
-            {number}{' '}
+            {phone}
             <DeleteBtn
               type="button"
               id={id}
