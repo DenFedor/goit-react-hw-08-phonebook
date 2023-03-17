@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { nanoid } from 'nanoid';
+import { ToastContainer, toast } from 'react-toastify';
 import { fetchContacts, addContact, deleteContact } from './operations';
 
 const handlePending = state => {
@@ -38,6 +38,7 @@ const contactsSlice = createSlice({
         state.contacts.isLoading = false;
         state.contacts.error = null;
         state.contacts.items.push(action.payload);
+        toast.success("New contact added!");
       })
       .addCase(addContact.rejected, handleRejected)
     //DELETE CONTACT//
@@ -48,6 +49,7 @@ const contactsSlice = createSlice({
         state.contacts.items = state.contacts.items.filter(
           contact => contact.id !== action.payload.id
         );
+        toast.warning("Contact has been deleted!");
       })
       .addCase(deleteContact.rejected, handleRejected);
   },
