@@ -38,7 +38,8 @@ const contactsSlice = createSlice({
         state.contacts.isLoading = false;
         state.contacts.error = null;
         state.contacts.items.push(action.payload);
-        toast.success('New contact added!');
+        console.log(action.payload.name);
+        toast.success(`Contact "${action.payload.name}" added!`);
       })
       .addCase(addContact.rejected, handleRejected)
       //DELETE CONTACT//
@@ -49,7 +50,7 @@ const contactsSlice = createSlice({
         state.contacts.items = state.contacts.items.filter(
           contact => contact.id !== action.payload.id
         );
-        toast.warning('Contact has been deleted!');
+        toast.warning(`Contact "${action.payload.name}" has been deleted!`);
       })
       .addCase(deleteContact.rejected, handleRejected);
   },
