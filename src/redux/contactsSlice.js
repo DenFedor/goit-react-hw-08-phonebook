@@ -38,7 +38,6 @@ const contactsSlice = createSlice({
         state.contacts.isLoading = false;
         state.contacts.error = null;
         state.contacts.items.push(action.payload);
-        console.log(action.payload.name);
         toast.success(`Contact "${action.payload.name}" added!`);
       })
       .addCase(addContact.rejected, handleRejected)
