@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { fetchContacts, addContact, deleteContact } from './operations';
 
 const handlePending = state => {
@@ -24,7 +24,7 @@ const contactsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-    //FETCH ALL//
+      //FETCH ALL//
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.contacts.isLoading = false;
         state.contacts.error = null;
@@ -32,16 +32,16 @@ const contactsSlice = createSlice({
       })
       .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.rejected, handleRejected)
-    //ADD CONTACT//
+      //ADD CONTACT//
       .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, (state, action) => {
         state.contacts.isLoading = false;
         state.contacts.error = null;
         state.contacts.items.push(action.payload);
-        toast.success("New contact added!");
+        toast.success('New contact added!');
       })
       .addCase(addContact.rejected, handleRejected)
-    //DELETE CONTACT//
+      //DELETE CONTACT//
       .addCase(deleteContact.pending, handlePending)
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.contacts.isLoading = false;
@@ -49,7 +49,7 @@ const contactsSlice = createSlice({
         state.contacts.items = state.contacts.items.filter(
           contact => contact.id !== action.payload.id
         );
-        toast.warning("Contact has been deleted!");
+        toast.warning('Contact has been deleted!');
       })
       .addCase(deleteContact.rejected, handleRejected);
   },

@@ -1,15 +1,11 @@
 import React from 'react';
 import { List, Li, ContactWrap, DeleteBtn } from './ContactList.styled';
-import { getContacts, getFilter } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/operations';
+import {selectFilteredContacts } from 'redux/selectors';
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-  const filteredContacts = contacts.filter(item =>
-    item.name.toLowerCase().includes(filter)
-  );
+  const filteredContacts = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
   return (
     <ContactWrap>
