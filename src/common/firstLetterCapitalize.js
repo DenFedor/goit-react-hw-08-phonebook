@@ -1,4 +1,4 @@
-import { PropTypes } from '@mui/material';
+import PropTypes from 'prop-types';
 export const firstLetterCapitalize = name => {
   return name
     .split(' ')
