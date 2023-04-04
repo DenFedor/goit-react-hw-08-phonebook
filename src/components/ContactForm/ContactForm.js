@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, InputWrap, AddBtn, Label, Input } from './ContactForm.styled';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/operations';
+import { addContact } from 'redux/contacts/contacts-operations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export const ContactForm = () => {
     const form = e.target;
     const userInput = {
       name: form.elements.name.value,
-      phone: form.elements.number.value,
+      number: form.elements.number.value,
     };
     dispatch(addContact(userInput));
     form.reset();

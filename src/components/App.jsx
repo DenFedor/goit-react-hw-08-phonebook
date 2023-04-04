@@ -1,30 +1,53 @@
-import React from 'react';
+import React, { lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
+import { useDispatch } from 'react-redux';
 import { Container } from './App.styled';
-import Filter from './Filter/Filter';
-import { fetchContacts } from 'redux/operations';
-import { selectError, selectIsLoading } from 'redux/selectors';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { PAGE_NAMES } from 'router/paths';
+import { fetchCurrentUser } from 'redux/auth/auth-operations';
+import PrivateRoute from 'router/PrivateRoutes';
+import PublicRoute from 'router/PublicRoutes';
+const LandingPage = lazy(() => import('../pages/home'));
+const SignIn = lazy(() => import('./Login/login'));
+const SignUp = lazy(() => import('./Register/signUp'));
+const Contacts = lazy(() => import('../pages/contacts'));
+const NotFound = lazy(() => import('../pages/notFound'));
+
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchCurrentUser());
   }, [dispatch]);
   return (
     <Container>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h3>Filter by name</h3>
-      <Filter />
-      <h2>Contacts</h2>
-      {isLoading && !error ? <b>Request in progress...</b> :<ContactList />}
-      <ToastContainer />
+      <Routes>
+        <Route
+          exact
+          path={PAGE_NAMES.home}
+          index
+          element={
+            <PrivateRoute component={<LandingPage />} redirectTo="/contacts" />
+          }
+        />
+        <Route
+          path={PAGE_NAMES.register}
+          element={
+            <PrivateRoute component={<SignUp />} redirectTo="/contacts" />
+          }
+        />
+        <Route
+          path={PAGE_NAMES.login}
+          element={
+            <PrivateRoute component={<SignIn />} redirectTo="/contacts" />
+          }
+        />
+        <Route
+          path={PAGE_NAMES.contacts}
+          element={<PublicRoute redirectTo="/login" component={<Contacts />} />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </Container>
   );
 };

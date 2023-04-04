@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { fetchContacts, addContact, deleteContact } from './operations';
+import { fetchContacts, addContact, deleteContact } from './contacts-operations';
 
 const handlePending = state => {
   state.contacts.isLoading = true;
