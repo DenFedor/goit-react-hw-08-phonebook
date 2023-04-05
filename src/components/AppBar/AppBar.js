@@ -18,6 +18,7 @@ import { setFilter } from 'redux/contacts/contactsSlice';
 import authSelectors from 'redux/auth/auth-selectors';
 import { firstLetterCapitalize } from 'common/firstLetterCapitalize';
 import { logout } from 'redux/auth/auth-operations';
+import { PAGE_NAMES } from 'router/paths';
 
 function ResponsiveAppBar() {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/contacts"
+            href={PAGE_NAMES.contacts}
             sx={{
               mr: 2,
               display: { xs: 'none', sm: 'none', md: 'flex' },

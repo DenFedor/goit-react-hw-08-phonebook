@@ -13,10 +13,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-        <Suspense fallback={<div style={{display: 'flex', justifyContent: 'center'}}>
-        <CircularProgress />
-</div>}>
-          <App /></Suspense>
+          <Suspense
+            fallback={
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <CircularProgress />
+              </div>
+            }
+          >
+            <App />
+          </Suspense>
         </BrowserRouter>
       </PersistGate>
     </Provider>

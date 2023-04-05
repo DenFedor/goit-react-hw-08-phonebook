@@ -3,7 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -14,23 +13,26 @@ import { PAGE_NAMES } from 'router/paths';
 import Copyright from 'components/Copyright/Copyright';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/auth-operations';
-
+import { useLocation } from 'react-router';
+import {Link} from 'react-router-dom';
 const theme = createTheme();
 
 export default function SignUp() {
-  const dispatch=useDispatch();
-
-  const handleSubmit = (event) => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    dispatch(register({name:data.get('firstName').toLowerCase()+' '+data.get('lastName').toLowerCase(),
-    email: data.get('email'),
-    password: data.get('password')}))
-    // console.log({
-    //   name:data.get('firstName').toLowerCase()+' '+data.get('lastName').toLowerCase(),
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
+    dispatch(
+      register({
+        name:
+          data.get('firstName').toLowerCase() +
+          ' ' +
+          data.get('lastName').toLowerCase(),
+        email: data.get('email'),
+        password: data.get('password'),
+      })
+    );
   };
 
   return (
@@ -51,7 +53,12 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -106,7 +113,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href={PAGE_NAMES.login} variant="body2">
+                <Link to={PAGE_NAMES.login} state={{ from: location }} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

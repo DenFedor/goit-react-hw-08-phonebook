@@ -25,26 +25,25 @@ export const App = () => {
         <Route
           exact
           path={PAGE_NAMES.home}
-          index
           element={
-            <PrivateRoute component={<LandingPage />} redirectTo="/contacts" />
+            <PrivateRoute component={<LandingPage />} redirectTo={PAGE_NAMES.contacts} />
           }
         />
         <Route
           path={PAGE_NAMES.register}
           element={
-            <PrivateRoute component={<SignUp />} redirectTo="/contacts" />
+            <PrivateRoute component={<SignUp />} redirectTo={PAGE_NAMES.contacts} />
           }
         />
         <Route
           path={PAGE_NAMES.login}
           element={
-            <PrivateRoute component={<SignIn />} redirectTo="/contacts" />
+            <PrivateRoute component={<SignIn />} redirectTo={PAGE_NAMES.contacts} />
           }
         />
         <Route
           path={PAGE_NAMES.contacts}
-          element={<PublicRoute redirectTo="/login" component={<Contacts />} />}
+          element={<PublicRoute component={<Contacts />}  redirectTo={PAGE_NAMES.login} />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -3,7 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -14,10 +13,12 @@ import { PAGE_NAMES } from 'router/paths';
 import Copyright from 'components/Copyright/Copyright';
 import { useDispatch } from 'react-redux';
 import { login } from 'redux/auth/auth-operations';
-
+import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 const theme = createTheme();
 
 export default function SignIn() {
+  const location = useLocation();
   const dispatch = useDispatch();
   const handleSubmit = event => {
     event.preventDefault();
@@ -84,7 +85,11 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href={PAGE_NAMES.register} variant="body2">
+                <Link
+                  to={PAGE_NAMES.register}
+                  state={{ from: location }}
+                  variant="body2"
+                >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
