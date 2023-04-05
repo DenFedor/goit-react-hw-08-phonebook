@@ -8,6 +8,7 @@ import { store, persistor } from 'redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { CircularProgress } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
@@ -25,5 +26,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
+    <ToastContainer />
   </React.StrictMode>
 );
