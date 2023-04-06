@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { logout } from 'redux/auth/auth-operations';
 import { fetchContacts, addContact, deleteContact } from './contacts-operations';
 
 const handlePending = state => {
@@ -51,7 +52,14 @@ const contactsSlice = createSlice({
         );
         toast.warning(`Contact "${action.payload.name}" has been deleted!`);
       })
-      .addCase(deleteContact.rejected, handleRejected);
+      .addCase(deleteContact.rejected, handleRejected)
+      //LOGOUT//
+      .addCase(logout.fulfilled, (state,action)=>{
+        state.contacts.isLoading = false;
+        state.contacts.error = null;
+        state.contacts.items = [];
+        state.filter='';
+      })
   },
 });
 
