@@ -152,8 +152,10 @@ export default function SignUp() {
                         Password
                       </InputLabel>
                       <OutlinedInput
-                        id="outlined-adornment-password"
+                        id="password"
+                        name='password'
                         type={showPassword ? 'text' : 'password'}
+                        label="Password"
                         endAdornment={
                           <InputAdornment position="end">
                             <IconButton
@@ -170,7 +172,7 @@ export default function SignUp() {
                             </IconButton>
                           </InputAdornment>
                         }
-                        label="Password"
+                        
                       />
                     </FormControl>
                   </Validate>
