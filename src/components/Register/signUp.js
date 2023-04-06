@@ -29,7 +29,6 @@ export default function SignUp() {
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
   const handleBlurPassword = event => {
-    console.log('blur off');
     event.preventDefault();
     setShowPassword(false);
   };
