@@ -16,11 +16,8 @@ import { register } from 'redux/auth/auth-operations';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import {
-  FormControl,
   IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ValidationGroup, Validate, AutoDisabler } from 'mui-validate';
