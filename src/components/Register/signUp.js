@@ -32,6 +32,7 @@ export default function SignUp() {
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
   const handleBlurPassword = event => {
+    console.log('blur off');
     event.preventDefault();
     setShowPassword(false);
   };
@@ -141,23 +142,20 @@ export default function SignUp() {
                   <Validate
                     name="password"
                     required={[true, 'Password is required']}
-                    regex={/^(?=.*)(?=.*[a-zA-Z0-9]).{7,}$/}
+                    regex={[/^(?=.*)(?=.*[a-zA-Z0-9]).{7,}$/, '']}
                   >
-                    <FormControl
+                    <TextField
+                      margin="normal"
+                      required
                       fullWidth
-                      variant="outlined"
-                      title="Password must be at least 7 characters long"
-                    >
-                      <InputLabel htmlFor="outlined-adornment-password">
-                        Password
-                      </InputLabel>
-                      <OutlinedInput
-                        id="password"
-                        name='password'
-                        type={showPassword ? 'text' : 'password'}
-                        label="Password"
-                        endAdornment={
-                          <InputAdornment position="end">
+                      name="password"
+                      label="Password"
+                      id="password"
+                      autoComplete="current-password"
+                      type={showPassword ? 'text' : 'password'}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start">
                             <IconButton
                               aria-label="toggle password visibility"
                               onClick={handleClickShowPassword}
@@ -171,10 +169,9 @@ export default function SignUp() {
                               )}
                             </IconButton>
                           </InputAdornment>
-                        }
-                        
-                      />
-                    </FormControl>
+                        ),
+                      }}
+                    />
                   </Validate>
                 </Grid>
               </Grid>
