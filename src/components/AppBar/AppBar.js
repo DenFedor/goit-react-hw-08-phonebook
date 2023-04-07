@@ -19,11 +19,13 @@ import authSelectors from 'redux/auth/auth-selectors';
 import { firstLetterCapitalize } from 'common/firstLetterCapitalize';
 import { logout } from 'redux/auth/auth-operations';
 import { PAGE_NAMES } from 'router/paths';
+import { selectFilter } from 'redux/contacts/contacts-selectors';
 
 function ResponsiveAppBar() {
   const dispatch = useDispatch();
   const userName = useSelector(authSelectors.getUserName);
   const userNameCapitalize = firstLetterCapitalize(userName);
+  const filterData=useSelector(selectFilter);
 
   const handleFilterChange = e => {
     dispatch(setFilter(e.target.value.toLowerCase().trim()));
@@ -108,8 +110,10 @@ function ResponsiveAppBar() {
               name="filter"
               id="filter"
               onChange={e => handleFilterChange(e)}
+              value={filterData}
               placeholder="Filter by Name"
               inputProps={{ 'aria-label': 'search' }}
+              autoFocus
             />
           </Search>
 
